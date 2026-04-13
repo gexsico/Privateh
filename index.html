@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">whisper — private chat</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       LOGIN SCREEN
+  ═══════════════════════════════════════════ -->
+  <div id="login-screen" class="screen active">
+    <div class="login-bg">
+      <div class="grain"></div>
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+    </div>
+
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo-icon">✦</span>
+        <h1 class="logo-text">whisper</h1>
+        <p class="logo-sub">a private space for two</p>
+      </div>
+
+      <div class="login-form">
+        <div class="field-group">
+          <label for="username">username</label>
+          <input type="text" id="username" placeholder="who are you?" autocomplete="off" />
+        </div>
+        <div class="field-group">
+          <label for="password">password</label>
+          <input type="password" id="password" placeholder="your secret" />
+        </div>
+        <div id="login-error" class="login-error hidden">⚠ wrong credentials</div>
+        <button id="login-btn" class="btn-primary">enter →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CHAT SCREEN
+  ═══════════════════════════════════════════ -->
+  <div id="chat-screen" class="screen">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo-icon small">✦</span>
+        <span class="sidebar-title">whisper</span>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">you</p>
+        <div id="my-username" class="sidebar-user me"></div>
+      </div>
+
+      <div class="sidebar-section">
+        <p class="sidebar-label">online now</p>
+        <div id="online-list" class="online-list"></div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button id="panic-btn" class="btn-panic" title="Panic mode">
+          <span class="btn-icon">👁</span> panic mode
+        </button>
+        <button id="delete-btn" class="btn-delete" title="Delete all messages">
+          <span class="btn-icon">🗑</span> delete all
+        </button>
+        <button id="logout-btn" class="btn-logout">← logout</button>
+      </div>
+    </aside>
+
+    <!-- Main chat area -->
+    <main class="chat-main">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <span class="chat-with-label">chatting with</span>
+          <span id="chat-with-name" class="chat-with-name">—</span>
+        </div>
+        <div id="typing-indicator" class="typing-indicator hidden">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+
+      <div id="messages-container" class="messages-container">
+        <div id="messages-list" class="messages-list"></div>
+        <div id="empty-state" class="empty-state">
+          <span class="empty-icon">✦</span>
+          <p>no messages yet</p>
+          <p class="empty-sub">say something…</p>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="input-wrapper">
+          <textarea
+            id="message-input"
+            class="message-input"
+            placeholder="write something…"
+            rows="1"
+            maxlength="2000"
+          ></textarea>
+          <button id="send-btn" class="send-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DELETE CONFIRMATION POPUP
+  ═══════════════════════════════════════════ -->
+  <div id="confirm-overlay" class="overlay hidden">
+    <div class="confirm-modal">
+      <p class="confirm-title">delete all messages?</p>
+      <p class="confirm-sub">this cannot be undone. triple-click the delete button to skip this.</p>
+      <div class="confirm-actions">
+        <button id="confirm-cancel" class="btn-secondary">cancel</button>
+        <button id="confirm-ok" class="btn-danger">yes, delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PANIC OVERLAY
+  ═══════════════════════════════════════════ -->
+  <div id="panic-overlay" class="panic-overlay hidden">
+    <div class="panic-content">
+      📚 study notes — mathematics revision
+      <br/><br/>
+      ∫∑∂∇ λ→∞ ⊕⊗ ∀x∃y ℝ³
+      <br/>
+      △ ◇ ○ □ ⬡ ⬟ ◉ ◈
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
